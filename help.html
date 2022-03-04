@@ -1,0 +1,525 @@
+
+<script>
+    
+window.addEventListener("load", function () {
+$("body").removeClass("showintro");
+
+
+    console.log("I am loaded");
+  gsap.registerPlugin(ScrollTrigger);
+
+  const pageContainer = document.querySelector(".smooth-scroll");
+  pageContainer.setAttribute("data-scroll-container", "");
+
+  const scroller = new LocomotiveScroll({
+               el: pageContainer,
+               smooth: true,
+               lerp: 0.09, // Linear Interpolation, 0 > 1 // Try 0.01
+    multiplier: 1.4, // Effect Multiplier
+    reloadOnContextChange: true,
+    touchMultiplier: 2,
+    smoothMobile: true,
+    smartphone: {
+        smooth: !0,
+        breakpoint: 767
+    },
+    tablet: {
+        smooth: !1,
+        breakpoint: 1024
+    },
+               getDirection: true
+           });
+
+           scroller.smartphone.smooth = true;
+console.log(scroller.smartphone.smooth); // give me true
+console.log(scroller);
+
+           scroller.on("scroll", function (t) {
+               document.documentElement.setAttribute("data-direction", t.direction);
+           });
+
+           scroller.on("scroll", ScrollTrigger.update);
+
+           ScrollTrigger.scrollerProxy(pageContainer, {
+               scrollTop(value) {
+                   return arguments.length
+                       ? scroller.scrollTo(value, 0, 0)
+                       : scroller.scroll.instance.scroll.y;
+               },
+               getBoundingClientRect() {
+                   return {
+                       left: 0,
+                       top: 0,
+                       width: window.innerWidth,
+                       height: window.innerHeight
+                   };
+               },
+               pinType: pageContainer.style.transform ? "transform" : "fixed"
+           });
+
+
+           const slider= document.querySelector('#process');
+           $('#loco-nav li:nth-child(2) a').on('click', function() {
+   scroller.scrollTo(slider);
+   console.log("locahahah");
+});
+
+splitterText(  
+  {
+  id: "blending",
+  containerclass: "mask",
+  class: "splitterLetter",
+  escape: "*",
+  from: {
+    x: "-180%",
+    stagger: {
+      from: "left",
+      amount: 0.5,
+    },
+  },
+  to: {
+    duration: 1,
+    x: "0px",
+    stagger: {
+      from: "left",
+      amount: 0.5,
+    },
+  },
+});  
+
+ 
+
+
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".beginning",
+    scroller:".smooth-scroll",
+    pin: true,
+    scrub: 1,
+    start: "top top",
+    end: "bottom top"
+ 
+  }
+});
+
+
+tl
+.from(".spoon", {
+    
+    duration:3,
+  
+  css: { opacity:0, translateX:200, translateY:100, rotation:0 },
+   ease: "power1.In"
+  }, "-=1.5")
+  .from(".jar", {
+      
+     duration:3,
+     
+    css: { translateY:160+'%', rotation:10 },
+     ease: "power3.In"
+    }, "-=1")
+.to(".title-main", {
+css: { opacity:0},
+duration:1,
+ease: "power4.Out"
+},"+=1")
+.to(".video", {
+
+opacity:0,
+
+duration:2,
+ease: "power4.Out"
+});
+
+
+ScrollTrigger.create({
+    trigger: '#jar',
+    endTrigger: '.horizontal-scroll',
+    scroller:".smooth-scroll",
+    start: 'center center',
+    
+    pin: true,
+    pinSpacing: false
+});
+            
+
+
+
+
+
+const videos = gsap.utils.toArray('video');
+
+videos.forEach(function(video, i) {
+    
+    ScrollTrigger.create({
+      trigger: video,
+      scroller: ".smooth-scroll",
+      start: 'top center',
+      end: 'bottom center',
+     
+      onEnter: () => video.play(),
+      onEnterBack: () => video.play(),
+      onLeave: () => video.pause(),
+      onLeaveBack: () => video.pause()
+
+    });
+    
+  })
+
+  const tt = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".theproduct",
+    scroller:".smooth-scroll",
+    pin: true,
+    scrub: false,
+    start: "top top",
+    end: "bottom top",
+    toggleActions: "play none reverse none",
+ 
+  }
+});
+
+
+tt.from(".bg", {
+
+opacity:0,
+
+
+ease: "power4.Out"
+});
+
+
+
+  const ti = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".ingredients",
+    scroller:".smooth-scroll",
+    pin: true,
+    scrub: true,
+    start: "top top",
+    end: "bottom top"
+ 
+  }
+});
+ti.from(".deco-main", {
+  
+  
+
+
+  css: { opacity:0, scaleX:0, scaleY:0 },
+  ease: "power3.In"
+});
+
+
+var tp = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".process",
+    scroller:".smooth-scroll",
+    pin: true,
+    scrub: true,
+    start: "top top",
+    end: "bottom top",
+    toggleActions: "play none reverse none",
+ 
+  }
+});
+
+tp.to(".bg1", {
+  
+
+
+  opacity:1,
+  ease: "power4.In"
+});
+
+
+
+
+
+
+
+ 
+ // Pinning and horizontal scrolling
+
+ let horizontalSections = document.querySelectorAll(".horizontal-scroll");
+
+horizontalSections.forEach((horizontalSection) => {
+  let pinWrap = horizontalSection.querySelector(".pin-wrap");
+  let pinWrapWidth = pinWrap.offsetWidth;
+  let horizontalScrollLength = pinWrapWidth - window.innerWidth;
+  gsap.to(pinWrap, {
+    scrollTrigger: {
+      scroller: ".smooth-scroll",
+      scrub: true,
+      trigger: horizontalSection,
+      pin: true,
+      start: "top top",
+      end: () => `+=${pinWrapWidth}`,
+      invalidateOnRefresh: true
+    },
+    x: -horizontalScrollLength,
+   
+    ease: "none"
+  });
+
+  tl.to(".jar1", {
+  scrollTrigger: {
+    trigger: horizontalSection,
+    scroller: ".smooth-scroll",
+    scrub: true,
+    pin: true,
+    start: "top top",
+    end: () => `+=${pinWrapWidth}`
+  },
+
+
+  css: { translateY:-100, rotation:-18},
+  ease: "power4.In"
+});
+
+tl.to(".spoon1", {
+  scrollTrigger: {
+    trigger: horizontalSection,
+    scroller: ".smooth-scroll",
+    scrub: true,
+    pin: true,
+    start: "top top",
+    end: () => `+=${pinWrapWidth}`
+  },
+
+
+  css: { translateX:200, rotation:-90},
+  ease: "power4.In"
+});
+});
+
+/* COLOR CHANGER */
+
+const scrollColorElems = document.querySelectorAll("[data-bgcolor]");
+scrollColorElems.forEach((colorSection, i) => {
+  const prevBg = i === 0 ? "" : scrollColorElems[i - 1].dataset.bgcolor;
+  const prevText = i === 0 ? "" : scrollColorElems[i - 1].dataset.textcolor;
+
+  ScrollTrigger.create({
+    trigger: colorSection,
+    scroller: "[data-scroll-container]",
+    start: "top 50%",
+    onEnter: () =>
+      gsap.to("body", {
+        backgroundColor: colorSection.dataset.bgcolor,
+        color: colorSection.dataset.textcolor,
+        overwrite: "auto"
+      }),
+    onLeaveBack: () =>
+      gsap.to("body", {
+        backgroundColor: prevBg,
+        color: prevText,
+        overwrite: "auto"
+      })
+  });
+});
+
+
+
+//tp.add(function () {
+ // console.log('do something');
+ /// splitterText(  
+ // {
+ // id: "processtitle",
+ // containerclass: "mask",
+ // class: "splitterLetter",
+ // escape: "*",
+ // from: {
+  //  x: "-180%",
+   // stagger: {
+  //    from: "left",
+  //    amount: 0.5,
+  //  },
+  //},
+  //to: {
+ //   duration: 1,
+ //   x: "0px",
+   // stagger: {
+  //    from: "left",
+  //    amount: 0.5,
+  //  },
+ // },
+//}); 
+//});
+
+
+let stepSections = document.querySelectorAll(".step");
+
+  stepSections.forEach((stepSection) => {
+    let stepbg = stepSection.querySelector(".bg");
+    let stepimg = stepSection.querySelector(".stepimg");
+
+
+    var ts = gsap.timeline({
+  scrollTrigger: {
+    trigger: stepSection,
+    scroller:".smooth-scroll",
+    pin: true,
+    scrub: true,
+    start: "top top",
+    end: "bottom bottom",
+    invalidateOnRefresh: true
+ 
+  }
+});
+
+ts
+.from(stepimg, {
+    duration:4,
+    opacity: 0,
+    ease: "Power4.In"
+  })
+.to(stepbg, {
+  duration:2,
+      opacity: 1,
+      ease: "Power4.In"
+    }, "+=1");
+ 
+    
+  });
+
+  ScrollTrigger.addEventListener("refresh", () => scroller.update());
+
+  ScrollTrigger.refresh();
+});
+
+
+
+</script>
+
+<section id="steps" data-scroll class="horizontal-scroll">
+    <div class="pin-wrap">
+      <div class="step d-flex align-items-center" id="step1">
+        <div class="bg"></div>
+      <div id="stepimg-1"><img src="assets/images/step1.jpg"></div>
+    
+    <div class="info">
+    <h4>Step 1</h4>
+    <h3>Thai Chilli Bird</h3>
+    
+    <p>Also known as Thaichillibird birdchiles or bird's-eye chiles, or prikkeenoo, these tiny 1 to 1 1/2-inch #chilli’s range in color from green to red.
+    
+      On the Scoville scale, #BirdsEyeChilis are at 100,000 Scoville Heat Units. This is to be classified with a degree of sharpness of 9. For comparison: Tabasco Chili pods are only half hot with 50,000 Scoville. Thai Birdseye chili peppers can shoot the bird with up to 225,000 SHU.
+      
+      But for #tabchilli we use only Ripe pods which are about 100,000 Scoville hot. In the land of pungency a welcome ingredient in the kitchen and for our #wildfermentation</p>
+    </div>
+    
+    </div>
+    
+    
+    <div class="step d-flex align-items-center" id="step2">
+      <div class="bg"></div>
+    <div id="stepimg-2"><img src="assets/images/step2.jpg"></div>
+    
+    <div class="info">
+    <h4>Step 2</h4>
+    <h3>Wild Fermentation</h3>
+    
+    <p>Also known as Thaichillibird birdchiles or bird's-eye chiles, or prikkeenoo, these tiny 1 to 1 1/2-inch #chilli’s range in color from green to red.
+    
+    On the Scoville scale, #BirdsEyeChilis are at 100,000 Scoville Heat Units. This is to be classified with a degree of sharpness of 9. For comparison: Tabasco Chili pods are only half hot with 50,000 Scoville. Thai Birdseye chili peppers can shoot the bird with up to 225,000 SHU.
+    
+    But for #tabchilli we use only Ripe pods which are about 100,000 Scoville hot. In the land of pungency a welcome ingredient in the kitchen and for our #wildfermentation</p>
+    </div>
+    
+    </div>
+    
+    
+    <div class="step d-flex align-items-center" id="step3">
+      <div class="bg"></div>
+    <div id="stepimg-3"><img src="assets/images/step3.jpg"></div>
+    
+    <div class="info">
+    <h4>Step 3</h4>
+    <h3>fleur De Sel</h3>
+    
+    <p>Also known as Thaichillibird birdchiles or bird's-eye chiles, or prikkeenoo, these tiny 1 to 1 1/2-inch #chilli’s range in color from green to red.
+    
+    On the Scoville scale, #BirdsEyeChilis are at 100,000 Scoville Heat Units. This is to be classified with a degree of sharpness of 9. For comparison: Tabasco Chili pods are only half hot with 50,000 Scoville. Thai Birdseye chili peppers can shoot the bird with up to 225,000 SHU.
+    
+    But for #tabchilli we use only Ripe pods which are about 100,000 Scoville hot. In the land of pungency a welcome ingredient in the kitchen and for our #wildfermentation</p>
+    </div>
+    
+    </div>
+    <div class="step d-flex align-items-center" id="step4">
+      <div class="bg"></div>
+    <div id="stepimg-4"><img src="assets/images/step4.jpg"></div>
+    
+    <div class="info">
+    <h4>Step 4</h4>
+    <h3>Extra Virgin Olive 
+      Oil Infusion</h3>
+    
+    <p>Also known as Thaichillibird birdchiles or bird's-eye chiles, or prikkeenoo, these tiny 1 to 1 1/2-inch #chilli’s range in color from green to red.
+    
+    On the Scoville scale, #BirdsEyeChilis are at 100,000 Scoville Heat Units. This is to be classified with a degree of sharpness of 9. For comparison: Tabasco Chili pods are only half hot with 50,000 Scoville. Thai Birdseye chili peppers can shoot the bird with up to 225,000 SHU.
+    
+    But for #tabchilli we use only Ripe pods which are about 100,000 Scoville hot. In the land of pungency a welcome ingredient in the kitchen and for our #wildfermentation</p>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+  </section>
+
+
+  ScrollTrigger.create({
+    trigger: '#step-path',
+    endTrigger: '#step4',
+    scroller:".smooth-scroll",
+    start: 'center center',
+    scrub:true,
+    pin: true,
+    pinSpacing: false
+});
+
+
+const tpath = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#steps",
+    scroller:".smooth-scroll",
+    pin: false,
+    scrub: true,
+    start: "top top",
+    end: "bottom top",
+    markers:true
+  }
+});
+
+tpath
+
+.from(".st3", {
+  
+  
+css: {strokeDashoffset:4000 },
+ease: "power3.easeOut"
+});
+
+<div id="step-path" data-scroll>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  viewBox="0 0 1366 3072" style="enable-background:new 0 0 1366 3072;" xml:space="preserve">
+<g id="mask">
+ <path class="st3" d="M1053.5,177.2c4.7,40.1-25.5,75.5-56.5,101.5c-117.3,98.4-277.6,143.6-429,120.9c-25.7-3.9-58.3-20-51.9-45.2
+   c2.1-8.1,8.2-14.7,15.1-19.3c32.1-21.7,76.2-7.5,109.1,13C701,386,786.8,473,783.6,552c-1,25-54.6,275-254.6,332.1
+   c-200,57.1-239.3,157.1-232.1,214.3c7.6,60.8,107.4,69.5,152,69.7c118,0.5,226-54.5,338.4-83.1c35.8-9.1,81.5-13.3,102.3,17.2
+   c12.2,17.9,10.5,42,4.5,62.8c-9.9,34.3-30.3,65.4-57.8,88.1c-43,35.4-99.8,48.7-155.1,55.9s-111.7,9.4-164.5,27.2
+   c-15,5.1-30.1,11.7-40.4,23.8c-22,25.8-5.7,47.5,18.7,60.7c49.9,27.2,254.7,119,113.5,170.1c-21.7,7.9-44.3,15.6-61.6,31
+   c-38.1,34-21,76.9,18.2,99.2c27.9,15.9,61,25.1,92.3,18.3c31.4-6.8,59.7-32.5,62.9-64.5c0.5-5.1,0.3-10.6-2.3-15
+   c-7.4-12.4-26.4-8-39.2-1.3c-58.5,30.8-205.7,146.7-71.4,182.8c127.5,34.2,256.7,64.7,379.2,114.8c50.2,20.5,113.2,44.9,149.1,87.9
+   c47.9,57.6-3.9,170.3-66.6,194c-72.6,27.5-175.6,12.1-251.7,7.9c-65.8-3.6-136.4-2.5-200.1-20.9c-68.9-19.8-130.5-59.6-190.3-97.9
+   c-26.3-16.8-53.2-33.8-83.3-42.4c-84.2-24.1-152.5,55.8-54.5,97.8c83.8,35.9,172.4,55.8,258.3,85.7
+   c61.7,21.5,155.7,51.4,181.3,119.5c53.6,142.9-217.9,78.6-289.3,107.1c-71.4,28.6-93.5,250,256.8,210.7
+   c350.3-39.3,407.4,3.6,403.9,75"/>
+</g>
+
+
+
+</svg>
+
+</div>

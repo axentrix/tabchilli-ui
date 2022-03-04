@@ -9,6 +9,8 @@
 --text-light:#dddfce;
 --border:#BDBFA9;
 --lightbg:#E3E4DD;
+
+--lightgreen:#818439;
 }
 
 
@@ -29,7 +31,7 @@
   width:100%;
   top:0;
   left:0;
-  height:100%;
+  height:100vh;
   display:block;
   position:absolute;
   background:rgba(0,0,0,0.24);
@@ -993,13 +995,13 @@ h2 {
   box-sizing: border-box;
 }
 
-section:not(.horizontal-scroll){
+section:not(.horizontal-scroller){
 
   min-height: 100vh;
   width: 100%;
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ 
+
   
 
   margin: auto;
@@ -1007,8 +1009,8 @@ section:not(.horizontal-scroll){
 
 }
 
-.horizontal-scroll {
-  height: 100vh;
+.horizontal-scroller {
+  height: 90vh;
   overflow: hidden;
   display: flex;
   left: 0;
@@ -1045,11 +1047,11 @@ section:not(.horizontal-scroll){
   width:100%;
   top:0;
   left:0;
-  height:100%;
+  height:100vh;
   z-index:-1;
   display:block;
   background:#040707;
-
+overflow:hidden;
   &:after{
 content:"";
 z-index:1;
@@ -1057,7 +1059,7 @@ z-index:1;
     top:0;
     left:0;
     width:100%;
-    height:100%;
+    height:100vh;
     background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,1) 48%);
   }
@@ -1079,7 +1081,21 @@ z-index:1;
     }
   }
 
-  
+  .jar1{
+
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    display:flex;
+    z-index:889;
+    
+
+    img{
+
+      max-width:300px;
+    }
+  }
   .spoon{
 
     position:absolute;
@@ -1091,23 +1107,33 @@ z-index:1;
     transform:rotate(-90deg);
     transform-origin:50% 50%;
   }
+  .spoon1{
 
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -30%);
+    display:flex;
+    z-index:905;
+    transform:rotate(-90deg);
+    transform-origin:50% 50%;
+  }
   .title-main{
 
     position:absolute;
     left:50%;
     top:50%;
     transform:translate(-50%, -50%);
-    display:flex;
+    display:block;
     z-index:888;
     font-family:"gallient";
     text-transform:uppercase;
-    opacity:0.2;
-    font-size:70px;
+    opacity:0.5;
+    font-size:4vh;
     margin:0;
     padding:0;
-    max-width:40vw;
-   
+    
+   font-weight:normal;
     transform-origin:50% 50%;
   }
 
@@ -1120,6 +1146,18 @@ z-index:1;
     display:flex;
     z-index:887; 
     max-width:40vw; 
+    transform-origin:50% 50%;
+  }
+
+  .deco-benefits{
+
+    position:absolute;
+    left:50%;
+    top:0;
+    transform:translateX(-50%);
+    display:flex;
+    z-index:-1; 
+ 
     transform-origin:50% 50%;
   }
   .info{font-size:0.8em;
@@ -1162,12 +1200,8 @@ h4{color:#ffffff;
   }
   .smooth-logo{
 width:100px;
-position:fixed;
-z-index:99999;
-left:50%;
-top:30px;
-transform:translate(-53%, 0);
-display:flex;
+
+margin-left:-15px;
 
 img{
   max-width: 100%;
@@ -1191,7 +1225,8 @@ img{
     z-index:9;
   display:flex;
     min-height:100vh;
-  
+  justify-content:center;
+  align-items:center;
   }
   .bg-wrap-product{
 
@@ -1214,11 +1249,25 @@ img{
   }
 .beginning{
   z-index:7;
-  
+
+  height:100vh !important;
   
 }
 .theproduct{
   z-index:11;
+  .bg{
+
+    background:url("../images/chilli.jpg") 50% 50% no-repeat;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    width:100%;
+    height:100%;
+    display:flex;
+    
+  }
+  
 }
   .ingredients {
 position:relative;
@@ -1231,18 +1280,6 @@ p{
 
 }
 
-.bg{
-
-  background:url("../images/chilli.jpg") 50% 0 no-repeat;
-  position:absolute;
-  top:-20%;
-  left:0;
-  z-index:10;
-  width:100%;
-  height:100%;
-  display:flex;
-  
-}
 
 
 .container{
@@ -1284,18 +1321,41 @@ font-size:0.8em;
   }
   }
 
-
   .thecircle{
-position:absolute;
-top:50%;
-left:50;
-transform:translate(-50%, -50%);
-display:block;
+z-index:999999990;
+display:none;
+    top:50%;
+    left:0;
+    display:block;
+    position:fixed;
     border-radius:50%;
-    width:50vw;
+    width:100vw;
     height:50vw;
-    background:rgba(255,255,255,0.3);
+    background:rgba(255,255,255,1);
+    transition:all 0.3s;
+    transform:translateY(-50%);
+    animation:forwards 1s 0s hideme;
   }
+.showintro.thecircle{
+
+top:-50%;
+left:0;
+animation:forwards 1s 0s showme;
+display:block;
+   
+  }
+
+@keyframes hideme{
+  from{
+    transform:translateY(50%);
+  }
+  to{
+    transform:translateY(100%);
+  }
+  
+  
+  }
+
 
   .process{
 .row{
@@ -1307,13 +1367,360 @@ display:block;
     
       background:url("../images/process.jpg") 50% 0 no-repeat;
       position:absolute;
-      top:-20%;
+      top:0%;
       left:0;
-      z-index:10;
+      z-index:0;
       width:100%;
-      height:100%;
+      height:100vh;
       display:flex;
-      
+      &:after{
+        content:"";
+        z-index:1;
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100vh;
+            background: rgb(0,0,0);
+            background: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,1) 68%);
+          }
     }
     
     }
+
+    .nav-inner{
+      top:50px;
+position:fixed;
+z-index:90;
+width:100%;
+ margin:0;
+ padding:0;
+display:flex;
+align-items:center;
+justify-content:center;
+      ul{
+        list-style:none;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+margin:0;
+padding:0;
+
+        li{
+          margin:0 3em;
+
+
+          a{
+
+            color:#ffffff;
+            font-family:"g-regular";
+            text-transform:uppercase;
+            font-size:0.8em;
+transition:all 0.3s;
+            &:hover{
+              text-decoration:none;
+              color:var(--lightgreen);
+            }
+          }
+        }
+      }
+    }
+
+ 
+
+  .smooth-scroll{
+    position:relative;
+  overflow-x:hidden;
+  }
+
+  section{
+
+  }
+
+
+  #jar{
+
+    z-index:9999;
+    animation:forwards 3.3s 0s showme;
+  }
+
+  @keyframes showme{
+    from{
+     opacity:0
+    }
+    to{
+      opacity:1
+    }
+    
+    
+    }
+    .mask {
+      /**
+      overflow: hidden;
+      display: inline-block;
+      **/
+      padding: 0;
+      font-size: 5vw;
+      font-family: 'Neue Haas Grotesk Text Pro';
+      
+      background: rgba(0,0,0,0);
+      font-weight: normal;
+      position: relative;
+      max-width: 12vw;
+      
+      br{
+        height:10px;
+        font-size:10px;
+      }
+      }
+      .splitterLetter {
+        display: block;
+    
+    font-family: 'gallient';
+
+      transform: translateX(-100%);
+      
+      
+      }
+
+
+      .info.text-white h4{
+        color:#ffffff;
+      }
+
+      #process {
+
+        h3 {
+color:white;
+font-size:4.5vh;
+
+        }
+
+        .info{
+          display:flex;
+          justify-content:center;
+          flex-direction:column;
+          align-items:center;
+        }
+      }
+
+
+
+      .step{
+
+
+display:flex;
+justify-content:center;
+align-items:center;
+color:#ffffff;
+.info{
+padding:5vh;
+h4{
+
+  color:#ffffff;
+  font-size:14px;
+}
+  p{
+
+    color:#ffffff;
+  }
+}
+h3{
+
+  color:#ffffff;
+}
+
+
+      }
+
+
+      section.step{
+
+        position:relative;
+justify-content:center;
+     
+display:flex;
+
+
+color:#ffffff;
+
+.bgs{
+  top:0;
+right:0;
+  position:absolute;
+  width:50%;
+  height:100vh;
+  background-size:cover;
+
+  z-index:0;
+}
+
+
+.info{
+padding:5vh;
+
+  p{
+
+    color:#ffffff;
+  }
+}
+h3{
+
+  color:#ffffff;
+}
+
+
+.stepimg{
+  width:30%;
+}
+img{
+
+  max-width:100%;
+  
+  height:auto;
+}
+      }
+
+      #step1 .bgs{
+        background:url("../images/step1bg.png") 100% 0 no-repeat;
+      }
+      #step2 .bgs{
+        background:url("../images/step2bg.png") 100% 0 no-repeat;
+      }
+      #step3 .bgs{
+        background:url("../images/step3bg.png") 100% 0 no-repeat;
+      }
+      #step4 .bgs{
+        background:url("../images/step4bg.png") 100% 0 no-repeat;
+      }
+
+
+      .benefits-grid{
+        display:grid;
+      
+        grid-template-columns:1fr 1fr 1fr;
+
+        color:#ffffff;
+
+
+        .benefit{
+
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          color:#ffffff;
+          flex-direction:column;
+          
+img{
+
+ height:65px;
+  width:auto;
+margin-top:10px;
+margin-bottom:10px;
+  display:block;
+}
+
+        }
+.benefit-title{
+
+
+  img{
+
+height:60px;
+width:auto;
+
+  }
+}
+        h3{
+font-size:14px;
+margin-top:20px;
+margin-bottom:20px;
+          color:#ffffff;
+        }
+
+        div{
+
+          text-align:center;
+        }
+      }
+
+      #benefits{
+
+display:flex;
+height:100vh;
+        .info{
+          color: #ffffff;
+          h3{
+           
+    font-family: "g-bold";
+    text-transform: uppercase;
+    font-size: 50px;
+    color: #ffffff;
+          }
+
+          h4{
+            font-family: "gallient", "Times New Roman", serif;
+    text-transform: uppercase;
+    color: #ffffff;
+          }
+        }
+      }
+
+      .benefit{
+        padding: 1rem;
+        text-align: center;
+        border-top: 1px solid #656757;
+
+div{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+       }
+       @media (min-width: 768px) {
+        .benefit {
+          border-top: 1px solid #656757;
+          border-left: 1px solid #656757;
+        }
+       }
+
+
+       @media (min-width: 992px) {
+        .benefit{
+          border-top: 1px solid #656757;
+          border-left: 1px solid #656757;
+          &:nth-child(-n+2) {
+            border-top: 1px solid #656757;
+          }
+          &:nth-child(odd) {
+            border-left: 1px solid #656757;
+          }
+          &:nth-child(-n+3) {
+            border-top: none;
+          }
+          &:first-child,
+          &:nth-child(3n+1) {
+            border-left: none;
+          }
+        }
+      }
+
+
+.st0{fill:none; stroke:#656757;}
+	.st1{fill:none;stroke:#656757;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#656757;stroke-miterlimit:10;stroke-dasharray:11.9818,11.9818;}
+	.st3{fill:none;stroke:#656757;stroke-width:1;stroke-miterlimit:10;}
+
+
+
+  #step-path{
+    z-index:999;
+display:block;
+width:100%;
+   
+    left:50%;
+    top:0;
+    transform:translateX(-50%)
+  }
