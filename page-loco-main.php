@@ -17,7 +17,10 @@ get_header(); // This fxn gets the header.php file and renders it ?>
 				// If we have a page to show, start a loop that will display it
 				?>
 
-				<div class="wrapper"><?php the_content(); ?></div>
+				<div class="wrapper">
+
+<h1 class="title"><?php the_title(); // Display the title of the page ?></h1>
+<?php the_content(); ?></div>
 
 				<?php endwhile; // OK, let's stop the page loop once we've displayed it ?>
 
